@@ -1,0 +1,97 @@
+<%- include("partials/header.ejs") %>
+<body>
+
+  <!-- Hero Section -->
+  <section class="text-white text-center py-5">
+    <div class="container">
+      <h1 class="display-3 fw-bold">Ventilator</h1>
+      <p class="lead mt-3">
+        This blog is a safe space where people can freely vent their thoughts, frustrations, and emotions without judgment.
+      </p>
+    </div>
+  </section>
+
+  <!-- Post Form -->
+  <section class="container my-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title mb-4">Let's vent</h4>
+        <form id="postForm">
+          <div class="mb-3">
+            <label for="postTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="postTitle" placeholder="Enter a Title">
+          </div>
+          <div class="mb-3">
+            <label for="postContent" class="form-label">Your Thoughts</label>
+            <textarea class="form-control" id="postContent" rows="4" placeholder="Write down your thoughts..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-dark">Post</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts Section -->
+  <section class="container mb-5">
+    <h3 class="mb-4">Community Posts</h3>
+    <div id="postsList"></div>
+  </section>
+
+  <!-- Bootstrap JS + Custom Script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const postForm = document.getElementById('postForm');
+    const postsList = document.getElementById('postsList');
+
+    postForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById('postTitle').value.trim();
+      const content = document.getElementById('postContent').value.trim();
+
+      if (title && content) {
+        // Create post card
+        const postCard = document.createElement('div');
+        postCard.className = 'card mb-4 shadow-sm';
+        postCard.innerHTML = `
+          <div class="card-body">
+            <h5 class="card-title">${title}</h5>
+            <p class="card-text">${content}</p>
+            <hr>
+            <h6>Comments</h6>
+            <div class="comments"></div>
+            <form class="commentForm mt-3">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Write a comment...">
+                <button class="btn btn-outline-primary" type="submit">Add</button>
+              </div>
+            </form>
+          </div>
+        `;
+
+        // Add comment functionality
+        const commentForm = postCard.querySelector('.commentForm');
+        const commentsDiv = postCard.querySelector('.comments');
+
+        commentForm.addEventListener('submit', function(ev) {
+          ev.preventDefault();
+          const input = commentForm.querySelector('input');
+          const commentText = input.value.trim();
+          if (commentText) {
+            const comment = document.createElement('p');
+            comment.className = 'mb-1';
+            comment.textContent = commentText;
+            commentsDiv.appendChild(comment);
+            input.value = '';
+          }
+        });
+
+        postsList.prepend(postCard);
+        postForm.reset();
+      }
+    });
+  </script>
+</body>
+</html>
+```
+

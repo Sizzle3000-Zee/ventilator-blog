@@ -1,0 +1,16 @@
+section { background-color:#39363a;}
+.container{background-color: #39363a;}
+div {background-color:#39363a;}
+body {
+  --bs-body-bg: #39363a;
+  background-color: var(--bs-body-bg);
+}
+
+#postForm {
+  color:white;      /* changes text color of labels and text inside the form */
+}
+
+.h4, h4 {
+   
+    font-size: calc(1.275rem + .3vw);
+}
